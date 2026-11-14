@@ -1,0 +1,7 @@
+# Agent guidance — jovian/venusian-pixman
+
+1. **The contract is Topside's** (`Surface\Contracts\Rendering\Framebuffers\PixelStore` and its tiers). venusian-b2 owns it; ask before assuming a change.
+2. **Byte-exact or delegate.** Every byte this store answers must equal VelvetGE's for the same calls. Use pixman only where it copies pixels exactly (SRC between identical layouts, and narrowing by truncation). Anything that is VelvetGE arithmetic is answered by a lent `PHPLandPixelStore`.
+3. **Painting tolerance is measured, not assumed.** Angel allowed library drivers a tolerance on 2026-11-13. `PixmanPixelStore::TOLERANCE` (2) is the measured worst byte for pixman `OVER` on 32/24-bit layouts. 565 paints through VelvetGE because pixman's 565 widening puts it up to 9 off. Don't implement `EffectsPixelStore`.
+4. **Tests.** `tests/PixmanParityTest.php` runs inside a copy of venusian/topside: copy topside's tests, phpunit.xml and `vendor` (a symlinked vendor makes Pest load topside's own tests), autoload `Jovian\Rendering\Pixman\` from this `src/`, add `pixman` to `tests/Datasets/FramebufferDrivers.php` together with `Tolerance::$by['pixman'] = PixmanPixelStore::TOLERANCE;`, copy this package's tests into `tests/Framebuffers/`, then `zhp vendor/bin/pest`. Everything must pass (2026-11-13, topside 7dee0bf, with venusian-pluto's plutovg registered through `LibraryDrivers`: 2749 passed, 3 skipped). PixmanDirectTest needs the whole suite (it uses DirectDrawTest's directShapes()).
+5. **Version** 0.11.0, the framework's line.

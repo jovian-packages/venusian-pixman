@@ -1,0 +1,61 @@
+{
+    "name": "jovian/venusian-pixman",
+    "description": "pixman framebuffer driver for Venusian Topside: framebuffer pixels in pixman images through ext-pixman, byte-exact with VelvetGE.",
+    "version": "0.11.0",
+    "type": "library",
+    "keywords": [
+        "framework",
+        "venusian",
+        "topside",
+        "framebuffer",
+        "pixman"
+    ],
+    "license": "MIT",
+    "homepage": "https://venusian.projectsaturnstudios.com/ecosystem/jovian/venusian-pixman/0.11.x",
+    "support": {
+        "issues": "https://github.com/jovian-packages/venusian-pixman/issues",
+        "source": "https://github.com/jovian-packages/venusian-pixman"
+    },
+    "authors": [
+        {
+            "name": "Angel Gonzalez",
+            "email": "angel@projectsaturnstudios.com"
+        }
+    ],
+    "require": {
+        "php": "~8.4.27||^8.5.12",
+        "ext-pixman": "^0.11.0",
+        "venusian/topside": "^0.11.5"
+    },
+    "require-dev": {
+        "pestphp/pest": "^4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jovian\\Rendering\\Pixman\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Jovian\\Rendering\\Pixman\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "0.11.x-dev"
+        },
+        "venusian": {
+            "providers": [
+                "Jovian\\Rendering\\Pixman\\Providers\\VenusianPixmanServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
