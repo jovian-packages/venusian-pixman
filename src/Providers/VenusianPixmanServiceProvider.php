@@ -2,20 +2,29 @@
 
 namespace Jovian\Rendering\Pixman\Providers;
 
-use Jovian\Rendering\Pixman\PixmanFramebufferDriver;
-use ReflectionException;
-use Surface\Rendering\Framebuffers;
+use Jovian\Rendering\Pixman\Framebuffers\VelvetPixmanFramebufferDriver;
 use Voyager\NutsAndBolts\ServiceProvider;
 
 class VenusianPixmanServiceProvider extends ServiceProvider
 {
-    /**
-     * Registers 'pixman' on Topside's framebuffer manager.
-     *
-     * @throws ReflectionException
-     */
+    public function register(): void
+    {
+
+    }
+
     public function boot(): void
     {
-        Framebuffers::manager()->extend('pixman', fn () => new PixmanFramebufferDriver());
+        $this->registerVelvetDrivers();
+    }
+
+    protected function registerVelvetDrivers(): void
+    {
+        $this->registerVelvetFramebufferDriver();
+    }
+
+    /** 'pixman' on Velvet's framebuffers. */
+    protected function registerVelvetFramebufferDriver(): void
+    {
+        app('velvet.framebuffers')->extend('pixman', fn () => new VelvetPixmanFramebufferDriver());
     }
 }
